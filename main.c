@@ -1,14 +1,27 @@
+//Employee Management System
+
 #include <stdio.h>
 #include <string.h>
+#pragma pack(1)
 
-struct person {
+//Nested structure to store employee Address
+struct address
+{
+    char city[50];
+    char state[20];
+};
+
+// Typedef for person structure
+typedef struct{
     char name[10];
     float hrs;
     char shift[20];
     int present;
     int utilization;
-};
+    struct address addr; //Nested Structure
+}person;
 
+// Function to mark attendance
 int Attendance(char *name)
 {
     char attendance[4];
@@ -39,61 +52,63 @@ int Attendance(char *name)
 
 int main()
 {
-    struct person Emp1;
-    struct person Emp2;
+    // Array of person structures to store data for multiple employees
+    person Emp[2];
 
-    printf("Enter the name of Employee 1: ");
-    scanf("%s", Emp1.name);
-    printf("Enter the number of hours worked by Employee 1: ");
-    scanf("%f", &Emp1.hrs);
-    printf("Enter the shift of Employee 1 (full time/part time): ");
-    scanf("%s", Emp1.shift);
+    //Store the Number of Employees to be Managed
+    int n;
+    printf("Enter the Number of Employees in your Organization: ");
+    scanf("%d",&n);
 
-    Emp1.present = Attendance(Emp1.name);
-
-    if(strcmp(Emp1.shift,"full")==0)
+    //Get User Input to analyse the reports of Employee
+    for(int i=0;i<n;i++)
     {
-        Emp1.utilization=(int)((Emp1.hrs/8.0)*100);
-    }
-    else
-    {
-      Emp1.utilization=(int)((Emp1.hrs/4.0)*100);
-    }
+        printf("\nEnter the name of Employee %d: ",i+1);
+        scanf("%s", Emp[i].name);
+        printf("Enter the number of hours worked by Employee %d: ",i+1);
+        scanf("%f", &Emp[i].hrs);
+        printf("Enter the shift of Employee %d (full time/part time): ",i+1);
+        scanf("%s", Emp[i].shift);
+        printf("Enter the Employee %d city: ",i+1);
+        scanf("%s", Emp[i].addr.city);
+        printf("Enter the Employee %d state: ",i+1);
+        scanf("%s", Emp[i].addr.state);
 
-    printf("Enter the name of Employee 2: ");
-    scanf("%s", Emp2.name);
-    printf("Enter the number of hours worked by Employee 2: ");
-    scanf("%f", &Emp2.hrs);
-    printf("Enter the shift of Employee 2 (full time/part time): ");
-    scanf("%s", Emp2.shift);
+        //Call Attendance marking function
+        Emp[i].present = Attendance(Emp[i].name);
 
-    Emp2.present = Attendance(Emp2.name);
+        //Calculate utilization for each employee
+        if(strcmp(Emp[i].shift,"full")==0)
+        {
+            Emp[i].utilization=(int)((Emp[i].hrs/8.0)*100);
+        }
+        else
+        {
+            Emp[i].utilization=(int)((Emp[i].hrs/4.0)*100);
+        }
 
-    if(strcmp(Emp2.shift,"full")==0)
-    {
-        Emp2.utilization=(int)((Emp2.hrs/8.0)*100);
-    }
-    else
-    {
-      Emp2.utilization=(int)((Emp2.hrs/4.0)*100);
     }
 
+    //Display Attendance Report
     printf("\nAttendance Report:\n");
-    printf("Employee 1 - %s: ", Emp1.name);
-    if (Emp1.present == 1) {
-        printf("Present\n");
-    } else {
-        printf("Absent\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("Employee %d - %s: ",i+1,Emp[i].name);
+        if (Emp[i].present == 1)
+        {
+            printf("Present");
+        }
+        else
+        {
+            printf("Absent");
+        }
+        printf(" from %s, %s\n",Emp[i].addr.city,Emp[i].addr.state);
     }
-    printf("Employee 2 - %s: ", Emp2.name);
-    if (Emp2.present == 1) {
-        printf("Present\n");
-    } else {
-        printf("Absent\n");
-    }
+
+    //Display Utilization report
     printf("\nUtilization Report:\n");
-    printf("Employee 1 - %d%%\n", Emp1.utilization);
-    printf("Employee 2 - %d%%\n", Emp2.utilization);
-
-
+    for(int i=0;i<n;i++)
+    {
+        printf("Employee %d - %s: %d%%\n",i+1,Emp[i].name,Emp[i].utilization);
+    }
 }
