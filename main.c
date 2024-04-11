@@ -2,53 +2,9 @@
 
 #include <stdio.h>
 #include <string.h>
-#pragma pack(1)
-
-//Nested structure to store employee Address
-struct address
-{
-    char city[50];
-    char state[20];
-};
-
-// Typedef for person structure
-typedef struct{
-    char name[10];
-    float hrs;
-    char shift[20];
-    int present;
-    int utilization;
-    struct address addr; //Nested Structure
-}person;
-
-// Function to mark attendance
-int Attendance(char *name)
-{
-    char attendance[4];
-    int valid_ip = 0;
-
-    while (!valid_ip)
-        {
-        printf("Is %s present today? (yes/no): ", name);
-        scanf("%s", attendance);
-
-        if (strcmp(attendance, "yes") == 0)
-        {
-            return 1; // Present
-        }
-        else if (strcmp(attendance, "no") == 0)
-        {
-            return 0; // Absent
-        }
-        else
-        {
-            printf("Invalid input! Please enter 'yes' or 'no'.\n");
-        }
-    }
-
-    return 0;
-}
-
+#include "employee_management.h"
+#include "attendance.c"
+#include "utilization.c"
 
 int main()
 {
