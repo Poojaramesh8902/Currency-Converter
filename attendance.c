@@ -1,19 +1,24 @@
 #include "employee_management.h"
 
 // Function to mark attendance
-int Attendance(char *name) {
+int markAttendance(char *name)
+{
     char attendance[4];
-    int valid_input = 0;
+    int validInput = 0;
 
-    while (!valid_input) {
+    while (!validInput)
+    {
         printf("Is %s present today? (yes/no): ", name);
         scanf("%s", attendance);
-
-        if (strcmp(attendance, "yes") == 0) {
+        if (strcmp(attendance, "yes") == 0 || strcmp(attendance, "YES") == 0 || strcmp(attendance, "Yes") == 0)
+        {
             return 1; // Present
-        } else if (strcmp(attendance, "no") == 0) {
+        } else if (strcmp(attendance, "no") == 0 || strcmp(attendance, "NO") == 0 || strcmp(attendance, "No") == 0)
+        {
             return 0; // Absent
-        } else {
+        }
+        else
+        {
             printf("Invalid input! Please enter 'yes' or 'no'.\n");
         }
     }

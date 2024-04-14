@@ -2,23 +2,22 @@
 #define EMPLOYEE_MANAGEMENT_H
 #include <stdio.h>
 
-// Nested structure to store employee Address
-struct address {
-    char city[50];
-    char state[20];
-};
-
-// Typedef for person structure
 typedef struct {
-    char name[10];
-    float hrs;
-    char shift[20];
+    char name[50];
+    char username[20];
+    char password[20];
+    float hoursWorked;
+    float leaveBalance;
+    int isFullTime;
     int present;
     int utilization;
-    struct address addr; // Nested Structure
-} person;
+} Person;
 
-int Attendance(char *name);
-void calculateUtilization(person employee[], int n);
+int markAttendance(char *name);
+void calculateUtilization(Person employees[], int numEmployees);
+void viewAllReports(Person employees[], int numEmployees);
+void applyForLeave(Person *employee);
+void viewLeaveBalance(Person *employee);
+void employeeMenu(Person *employee);
 
 #endif //end of macro (ifndef)
