@@ -11,6 +11,36 @@
 #include "leavebalance.c"
 #include "empfun.c"
 
+void saveEmployees(Person employees[], int numEmployees, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        return;
+    }
+
+    for (int i = 0; i < numEmployees; i++) {
+        fprintf(file, "%s %f %d %d\n", employees[i].name, employees[i].hoursWorked, employees[i].isFullTime, employees[i].present);
+    }
+
+    fclose(file);
+}
+
+void loadEmployees(Person employees[], int *numEmployees, const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening file for reading.\n");
+        return;
+    }
+
+    *numEmployees = 0;
+    while (fscanf(file, "%s %f %d %d", employees[*numEmployees].name, &employees[*numEmployees].hoursWorked, &employees[*numEmployees].isFullTime, &employees[*numEmployees].present) == 4) {
+        (*numEmployees)++;
+    }
+
+    fclose(file);
+}
+
+
 int main()
 {
     char username[20], password[20];
@@ -37,6 +67,9 @@ int main()
 
             employees[i].present = markAttendance(employees[i].name);
         }
+	//Save the data to the file
+	saveEmployees(employees, numEmployees, "employees.txt");
+
         calculateUtilization(employees, numEmployees);
         adminFunctionalities(employees, numEmployees);
     }
