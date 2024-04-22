@@ -56,6 +56,9 @@ int main()
         printf("Enter the Number of Employees in your Organization: ");
         scanf("%d", &numEmployees);
 
+	// Load existing employee data from file
+        loadEmployees(employees, &numEmployees, "employees.txt");
+
         for (int i = 0; i < numEmployees; i++)
         {
             printf("\nEnter the name of Employee %d: ", i + 1);
