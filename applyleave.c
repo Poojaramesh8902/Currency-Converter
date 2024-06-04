@@ -6,7 +6,7 @@ void applyForLeave(Person *employee)
     int days;
     printf("Enter number of days for leave: ");
     scanf("%d", &days);
-    if (days <= 4)
+    if (days <= 4 && employee->leaveBalance >= days)
     {
         printf("Leave applied successfully!\n");
         employee->leaveBalance -= days;

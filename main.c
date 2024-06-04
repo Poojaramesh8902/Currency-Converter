@@ -81,6 +81,7 @@ int main()
         Person employee;
         strcpy(employee.username, username);
         strcpy(employee.password, password);
+	    employee.leaveBalance = 20.0;
         employeeMenu(&employee);
     }
 

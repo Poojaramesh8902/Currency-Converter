@@ -3,5 +3,5 @@
 // Function for employee to view leave balance
 void viewLeaveBalance(Person *employee)
 {
-    printf("Leave Balance: %.2f\n", employee->leaveBalance);
+    printf("Leave Balance: %.2\f\n", employee->leaveBalance);
 }

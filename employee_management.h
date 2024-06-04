@@ -13,6 +13,7 @@ typedef struct {
     int utilization;
 } Person;
 
+void defaultValue(Person *employee);
 int markAttendance(char *name);
 void calculateUtilization(Person employees[], int numEmployees);
 void viewAllReports(Person employees[], int numEmployees);
