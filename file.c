@@ -1,27 +1,54 @@
-#include "employee_management_system.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "Employee_Management.h"
 
-// Function to save employee data to a file
-void saveEmployeesToFile(Person employees[], int numEmployees) 
-{
-    FILE *file = fopen(FILENAME, "w");
-    if (file == NULL) 
-    {
-        printf("Error opening file!\n");
+// Save employee data to file
+void save_employees_to_file() {
+    FILE *file = fopen("employees.txt", "w");
+    if (!file) {
+        printf("Error saving employee data!\n");
         return;
     }
-    for (int i = 0; i < numEmployees; i++) 
-    {
-        fprintf(file, "Employee %d\n", i + 1);
-        fprintf(file, "Username: %s\n", employees[i].username);
-        fprintf(file, "Password: %s\n", employees[i].password);
-        fprintf(file, "Hours Worked: %.2f\n", employees[i].hoursWorked);
-        fprintf(file, "Leave Balance: %.2f\n", employees[i].leaveBalance);
-        fprintf(file, "Full-Time: %d\n", employees[i].isFullTime);
-        fprintf(file, "Present: %d\n", employees[i].present);
-        fprintf(file, "Utilization: %d%%\n", employees[i].utilization);
-        fprintf(file, "\n");
+    fprintf(file, "%d\n", employee_count);
+    for (int i = 0; i < employee_count; i++) {
+        fprintf(file, "%s\n%s\n%d\n%d\n%d\n", 
+                employees[i].name, employees[i].email, 
+                employees[i].leave_balance, employees[i].days_present, 
+                employees[i].attendance_count);
+        for (int j = 0; j < employees[i].attendance_count; j++) {
+            fprintf(file, "%s\n%s\n%s\n", 
+                    employees[i].attendance[j].date, 
+                    employees[i].attendance[j].check_in, 
+                    employees[i].attendance[j].check_out);
+        }
     }
     fclose(file);
-    printf("Employee data saved to %s\n", FILENAME);
+}
+
+// Load employee data from file
+void load_employees_from_file() {
+    FILE *file = fopen("employees.txt", "r");
+    if (!file) {
+        printf("No saved employee data found. Initializing default data.\n");
+        initialize_employees();
+        return;
+    }
+    fscanf(file, "%d\n", &employee_count);
+    for (int i = 0; i < employee_count; i++) {
+        fgets(employees[i].name, sizeof(employees[i].name), file);
+        strtok(employees[i].name, "\n");
+        fgets(employees[i].email, sizeof(employees[i].email), file);
+        strtok(employees[i].email, "\n");
+        fscanf(file, "%d\n%d\n%d\n", &employees[i].leave_balance, 
+               &employees[i].days_present, &employees[i].attendance_count);
+        for (int j = 0; j < employees[i].attendance_count; j++) {
+            fgets(employees[i].attendance[j].date, sizeof(employees[i].attendance[j].date), file);
+            strtok(employees[i].attendance[j].date, "\n");
+            fgets(employees[i].attendance[j].check_in, sizeof(employees[i].attendance[j].check_in), file);
+            strtok(employees[i].attendance[j].check_in, "\n");
+            fgets(employees[i].attendance[j].check_out, sizeof(employees[i].attendance[j].check_out), file);
+            strtok(employees[i].attendance[j].check_out, "\n");
+        }
+    }
+    fclose(file);
 }
