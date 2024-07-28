@@ -1,6 +1,6 @@
-# HR Management System
+# Employee Management System
 
-This is a simple HR Management System written in C. The system allows administrators to manage employee records, including adding and deleting employees. Employees can mark their attendance, apply for leave, and view their attendance records and leave balance.
+This is a simple Employee Management System written in C. The system allows administrators to manage employee records, including adding and deleting employees. Employees can mark their attendance, apply for leave, and view their attendance records and leave balance.
 
 ## Features
 
