@@ -19,7 +19,7 @@ This is a simple Employee Management System written in C. The system allows admi
   - Validate date format (YYYY-MM-DD).
   - Validate time format (HH:MM AM/PM or HH:MM).
   - Ensure valid check-in and check-out times.
-  - Validate email IDs and suggest a format based on the employee’s name.
+  - Validate email IDs based on the employee’s name.
 
 ## Usage
 
