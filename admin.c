@@ -30,8 +30,8 @@ void add_employee() {
     scanf(" %[^\n]", employees[employee_count].name);
     
     // Suggest email format
-    printf("Suggested email: %s%s\n", employees[employee_count].name, EMAIL_DOMAIN);
-    printf("Enter employee email: ");
+    //printf("Suggested email: %s%s\n", employees[employee_count].name, EMAIL_DOMAIN);
+    printf("Enter employee email [YourName@company.com]: ");
     scanf(" %[^\n]", email);
     
     // Validate email
